@@ -40,7 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ensure.cs" />
+    <Compile Include="Implementations\EventSourced.cs" />
+    <Compile Include="Implementations\EventSourcedRepositoryExtensions.cs" />
+    <Compile Include="IEventSourced.cs" />
+    <Compile Include="IEventSourcedRepository.cs" />
+    <Compile Include="IEventSubscriber.cs" />
+    <Compile Include="Implementations\StreamCategoryAttribute.cs" />
+    <Compile Include="ISnapshot.cs" />
+    <Compile Include="Utils\Ensure.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

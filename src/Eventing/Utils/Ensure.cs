@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Eventing
+namespace Eventing.Utils
 {
     public static class Ensure
     {
