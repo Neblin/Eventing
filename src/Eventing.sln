@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventing.GetEventStore", "E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventing.GetEventStore.Tests", "Eventing.GetEventStore.Tests\Eventing.GetEventStore.Tests.csproj", "{95D475C2-5450-42AC-BB6F-DB50F3C3E0D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventing.SqlCompact", "Eventing.SqlCompact\Eventing.SqlCompact.csproj", "{3C10A4FB-86F8-4147-B336-0861E9A17D73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventing.SqlCompact.Tests", "Eventing.SqlCompact.Tests\Eventing.SqlCompact.Tests.csproj", "{91D71509-79FD-43BE-A3F0-46654D0BBD92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{95D475C2-5450-42AC-BB6F-DB50F3C3E0D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95D475C2-5450-42AC-BB6F-DB50F3C3E0D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95D475C2-5450-42AC-BB6F-DB50F3C3E0D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C10A4FB-86F8-4147-B336-0861E9A17D73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C10A4FB-86F8-4147-B336-0861E9A17D73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C10A4FB-86F8-4147-B336-0861E9A17D73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C10A4FB-86F8-4147-B336-0861E9A17D73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91D71509-79FD-43BE-A3F0-46654D0BBD92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91D71509-79FD-43BE-A3F0-46654D0BBD92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91D71509-79FD-43BE-A3F0-46654D0BBD92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91D71509-79FD-43BE-A3F0-46654D0BBD92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
