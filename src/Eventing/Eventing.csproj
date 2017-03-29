@@ -44,7 +44,7 @@
     <Compile Include="Implementations\EventSourcedRepositoryExtensions.cs" />
     <Compile Include="IEventSourced.cs" />
     <Compile Include="IEventSourcedRepository.cs" />
-    <Compile Include="IEventSubscriber.cs" />
+    <Compile Include="IEventStreamSubscription.cs" />
     <Compile Include="Implementations\StreamCategoryAttribute.cs" />
     <Compile Include="ISnapshot.cs" />
     <Compile Include="Utils\Ensure.cs" />

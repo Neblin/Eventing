@@ -10,12 +10,12 @@ using System.Text;
 namespace Eventing.GetEventStore.Tests.Subscription
 {
     [TestClass]
-    public class EventSubscriberTests
+    public class GesEventSubscriberTests
     {
         private ClusterVNode node;
-        private EventSubscriber sut;
+        private GesEventStreamSubscriber sut;
 
-        public EventSubscriberTests()
+        public GesEventSubscriberTests()
         {
             var nodeBuilder = EmbeddedVNodeBuilder
                                 .AsSingleNode()
@@ -24,7 +24,7 @@ namespace Eventing.GetEventStore.Tests.Subscription
             this.node = nodeBuilder.Build();
             this.node.StartAndWaitUntilReady().Wait();
 
-            this.sut = new EventSubscriber(null);
+            this.sut = new GesEventStreamSubscriber(EmbeddedEventStoreConnection.Create(this.node));
         }
 
         [TestMethod]
@@ -35,12 +35,23 @@ namespace Eventing.GetEventStore.Tests.Subscription
 
             var processedCount = 0;
 
-            this.sut.StartSubscription("newSub", stream, e => 
-            {
-                processedCount++;
-            });
+            this.sut.CreateSubscription("testStream", null, (c, e) => processedCount++)
+                .Start();
 
-            Wait.For(TimeSpan.FromSeconds(10), () => processedCount >= 10, () => throw new TimeoutException());
+            Wait.For(TimeSpan.FromSeconds(5), () => processedCount >= 10, () => throw new TimeoutException($"Total procesado: {processedCount}"));
+        }
+
+        [TestMethod]
+        public void CanStopARunningSubscription()
+        {
+            var stream = "testStream";
+            this.WriteEvent(stream, 10);
+
+            var processedCount = 0;
+
+            var sub = this.sut.CreateSubscription("testStream", null, (c, e) => processedCount++);
+            sub.Start();
+            sub.Stop();            
         }
 
         private void WriteEvent(string stream, int quantity = 1)
@@ -48,7 +59,7 @@ namespace Eventing.GetEventStore.Tests.Subscription
             using (var conn = EmbeddedEventStoreConnection.Create(this.node))
             {
                 conn.ConnectAsync().Wait();
-                for (int i = 0; i < 1; i++)
+                for (int i = 0; i < quantity; i++)
                 {
                     conn.AppendToStreamAsync(stream, ExpectedVersion.Any,
                             new EventData(Guid.NewGuid(), "testEventType", true,
