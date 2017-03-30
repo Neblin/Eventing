@@ -11,14 +11,14 @@ namespace Eventing.GetEventStore.Subscription
         private readonly Action<long, object> handler;
         private readonly TimeSpan stopTimeout;
 
-        private long? checkpoint;
+        private Lazy<long?> lastCheckpoint;
         private EventStoreCatchUpSubscription subscription;
 
         private bool shouldStopNow = false;
 
         private readonly object lockObject = new object();
 
-        public GesEventStreamSubscription(IEventStoreConnection resilientConnection, string streamName, long? checkpoint, Action<long, object> handler, TimeSpan stopTimeout)
+        public GesEventStreamSubscription(IEventStoreConnection resilientConnection, string streamName, Lazy<long?> lastCheckpoint, Action<long, object> handler, TimeSpan stopTimeout)
         {
             Ensure.NotNull(resilientConnection, nameof(resilientConnection));
             Ensure.NotNullOrWhiteSpace(streamName, nameof(streamName));
@@ -27,13 +27,13 @@ namespace Eventing.GetEventStore.Subscription
             this.resilientConnection = resilientConnection;
             this.streamName = streamName;
             this.handler = handler;
-            this.checkpoint = checkpoint;
+            this.lastCheckpoint = lastCheckpoint;
             this.stopTimeout = stopTimeout;
         }
 
         public void Start()
         {
-            this.shouldStopNow = false;
+            this.shouldStopNow = false; 
             this.DoStart();
         }
 
@@ -55,7 +55,7 @@ namespace Eventing.GetEventStore.Subscription
                     this.DoStop();
 
 
-                this.subscription = this.resilientConnection.SubscribeToStreamFrom(this.streamName, this.checkpoint, CatchUpSubscriptionSettings.Default,
+                this.subscription = this.resilientConnection.SubscribeToStreamFrom(this.streamName, this.lastCheckpoint.Value, CatchUpSubscriptionSettings.Default,
                        (sub, eventAppeared) =>
                        {
                            if (!this.shouldStopNow)

@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Text;
 
-namespace Eventing.GetEventStore.Tests.Subscription
+namespace Eventing.GetEventStore.Tests.Persistence
 {
     [TestClass]
     public class GesEventSubscriberTests
@@ -35,7 +35,7 @@ namespace Eventing.GetEventStore.Tests.Subscription
 
             var processedCount = 0;
 
-            this.sut.CreateSubscription("testStream", null, (c, e) => processedCount++)
+            this.sut.CreateSubscription("testStream", new Lazy<long?>(() => null), (c, e) => processedCount++)
                 .Start();
 
             Wait.For(TimeSpan.FromSeconds(5), () => processedCount >= 10, () => throw new TimeoutException($"Total procesado: {processedCount}"));
@@ -49,7 +49,7 @@ namespace Eventing.GetEventStore.Tests.Subscription
 
             var processedCount = 0;
 
-            var sub = this.sut.CreateSubscription("testStream", null, (c, e) => processedCount++);
+            var sub = this.sut.CreateSubscription("testStream", new Lazy<long?>(() => null), (c, e) => processedCount++);
             sub.Start();
             sub.Stop();            
         }

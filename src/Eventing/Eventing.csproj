@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IEventSourcedSubscriber.cs" />
     <Compile Include="Implementations\Conventions.cs" />
     <Compile Include="Implementations\EventSourced.cs" />
     <Compile Include="Implementations\EventSourcedRepositoryExtensions.cs" />
